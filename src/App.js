@@ -1,29 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-export default App;
-
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { } from 'react-bootstrap';
@@ -68,10 +42,9 @@ function App() {
     .then(data => { return data.artists.items[0].id });
 
     // Get request with Artist ID grab all the albums from that artist
-    var returnedAlbums = await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums?include_groups=album&market=US&limit=50', searchParameters) // album,sinle gets more stuff
+    await fetch('https://api.spotify.com/v1/artists/' + artistID + '/albums?include_groups=album&market=US&limit=50', searchParameters) // album,sinle gets more stuff
     .then(response => response.json())
     .then(data => {
-      //console.log(data);
       setName(data.items[0].artists[0].name);
       setAlbums(data.items);
     });
@@ -80,7 +53,6 @@ function App() {
 
   
   return (
-    console.log(name),
     <div className="App">
       <Container>
         <InputGroup className="mb-3" size="lg">
@@ -108,7 +80,6 @@ function App() {
         <p>{(name !== "" ? "Showing results for "+ name : "")}</p>
         <Row className="mx-2 row row-cols-4">
           {albums.map((album, i) => {
-            //console.log(album);
             return (
               <Card>
                 <Card.Img src={album.images[0].url} />
